@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cours et méthodes · Qualité de l'eau</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header class="site"><a href="index.html">← Accueil</a> <a href="corrections.html">Corrections</a> <a href="qcm.html">QCM</a></header>
+
+<h1>Séance 1 · Qualité de l'eau : bilan du cours</h1>
+<p class="sub">Notions, formules à connaître, méthodes de résolution et erreurs fréquentes. Le chapitre part d'une question : une eau minérale est-elle potable ?</p>
+
+<h2 id="notions">1. Notions du cours</h2>
+
+<h3 id="solvant">L'eau est un solvant polaire</h3>
+<p>La molécule H₂O est polaire : l'oxygène porte une charge partielle négative (δ⁻), les deux hydrogènes portent une charge partielle positive (δ⁺). Les ions dissous sont entourés de molécules d'eau : c'est l'interaction ion–molécule polaire (solvatation, ou hydratation dans le cas de l'eau).</p>
+<figure style="margin:14px 0;text-align:center">
+<svg viewBox="0 0 300 200" width="300" role="img" aria-label="Molécule d'eau polaire avec charges partielles et moment dipolaire" style="max-width:100%;height:auto;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="fleche" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c77700"/>
+    </marker>
+  </defs>
+  <!-- liaisons -->
+  <line x1="150" y1="70" x2="100" y2="140" stroke="currentColor" stroke-width="3"/>
+  <line x1="150" y1="70" x2="200" y2="140" stroke="currentColor" stroke-width="3"/>
+  <!-- atomes -->
+  <circle cx="150" cy="60" r="26" fill="#e74c3c"/>
+  <text x="150" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">O</text>
+  <circle cx="100" cy="150" r="20" fill="#dfe6ec"/>
+  <text x="100" y="156" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">H</text>
+  <circle cx="200" cy="150" r="20" fill="#dfe6ec"/>
+  <text x="200" y="156" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">H</text>
+  <!-- charges partielles -->
+  <text x="190" y="40" font-size="16" font-weight="700" fill="#1f6fb4">δ⁻</text>
+  <text x="70" y="186" font-size="16" font-weight="700" fill="#c0392b">δ⁺</text>
+  <text x="212" y="186" font-size="16" font-weight="700" fill="#c0392b">δ⁺</text>
+  <!-- moment dipolaire : des H vers O -->
+  <line x1="150" y1="165" x2="150" y2="100" stroke="#c77700" stroke-width="3" marker-end="url(#fleche)" stroke-dasharray="0"/>
+  <text x="160" y="125" font-size="13" fill="#c77700">dipôle</text>
+</svg>
+<figcaption class="sub">H₂O : l'oxygène porte δ⁻, les hydrogènes δ⁺. Le dipôle pointe vers l'oxygène : la molécule est polaire.</figcaption>
+</figure>
+
+
+<h3 id="dissolution">Dissolution d'un solide ionique</h3>
+<p>Le solide se sépare en ions qui se dispersent dans l'eau.<br>
+Exemple : <code>NaCl(s) → Na⁺(aq) + Cl⁻(aq)</code></p>
+<p id="solub"><strong>Solubilité</strong> : masse maximale de solide qui peut se dissoudre dans un litre d'eau, en g·L⁻¹. Elle dépend de l'ion.</p>
+<table>
+  <tr><th>Composé insoluble</th><th>Moyennement soluble</th><th>Soluble</th></tr>
+  <tr><td>s &lt; 1 g·L⁻¹</td><td>1 g·L⁻¹ &lt; s &lt; 10 g·L⁻¹</td><td>s &gt; 10 g·L⁻¹</td></tr>
+</table>
+
+<h3 id="conductivite">Conductivité électrique σ</h3>
+<ul>
+  <li>Capacité d'une solution à conduire le courant. Elle est due à la présence d'ions.</li>
+  <li>Unité SI : S·m⁻¹. En pratique on rencontre aussi mS·m⁻¹ et mS·cm⁻¹ ; <strong>1 mS·cm⁻¹ = 100 mS·m⁻¹</strong>.</li>
+  <li>Mesure : conductimètre + cellule conductimétrique.</li>
+</ul>
+
+<h3 id="facteurs">De quoi dépend σ ?</h3>
+<ul>
+  <li><strong>La nature des ions</strong> : à concentration égale, K⁺ conduit mieux que Na⁺ ; Cl⁻ mieux que NO₃⁻.</li>
+  <li><strong>La concentration</strong> : σ augmente avec la concentration (relation linéaire pour des solutions diluées).</li>
+  <li><strong>La température</strong> : σ augmente avec T.</li>
+</ul>
+
+<h3 id="types">Types d'eau</h3>
+<table>
+  <tr><th>Eau</th><th>Contenu</th><th>Conductivité</th><th>Bactéries</th></tr>
+  <tr><td>Ultra pure</td><td>Pratiquement aucun ion</td><td>≈ 0</td><td>Non</td></tr>
+  <tr><td>Déminéralisée</td><td>Sans minéraux ni ions</td><td>Faible</td><td>Oui possible</td></tr>
+  <tr><td>Distillée</td><td>Purifiée, mais gaz dissous (O₂, CO₂)</td><td>Faible</td><td>Non</td></tr>
+  <tr><td>Minérale</td><td>Chargée en ions</td><td>Élevée</td><td>—</td></tr>
+</table>
+
+<h3 id="dosage">Dosage par titrage conductimétrique</h3>
+<ul>
+  <li>Réaction de dosage <strong>totale</strong> ; ici <span class="c-ba">a Ba²⁺(aq)</span> + <span class="c-so4">b SO₄²⁻(aq)</span> → <span class="c-prod">c BaSO₄(s)</span>.</li>
+  <li>On suit σ en fonction du volume versé. La courbe est formée de <strong>deux portions de droite</strong>.</li>
+  <li>Avant V<sub>eq</sub> : σ diminue (SO₄²⁻ est éliminé du milieu). Après V<sub>eq</sub> : σ augmente (Ba²⁺ et Cl⁻ sont en excès).</li>
+  <li><strong>Équivalence</strong> : intersection des deux droites, lue en V<sub>eq</sub>.</li>
+</ul>
+
+<h3 id="potabilite">Potabilité et normes</h3>
+<p>Une eau est comparée à une valeur de référence. Pour les sulfates de l'eau de distribution, la référence est <strong>250 mg·L⁻¹</strong>. Exemple : l'eau minérale de l'étiquette annonce 1121 mg·L⁻¹, soit environ 4,5 fois la référence : non conforme pour l'eau de distribution.</p>
+
+<h2 id="formules">2. Formules à connaître</h2>
+<table>
+  <tr><th>Grandeur</th><th>Relation</th><th>Unité</th></tr>
+  <tr><td>Quantité de matière</td><td><code>n = m / M</code> ; <code>n = C × V</code></td><td>mol</td></tr>
+  <tr><td>Concentration molaire</td><td><code>C = n / V</code></td><td>mol·L⁻¹</td></tr>
+  <tr><td>Concentration massique</td><td><code>Cm = m / V = C × M</code></td><td>g·L⁻¹</td></tr>
+  <tr><td>Équivalence</td><td><code>n(A) / a = n(B) / b</code></td><td>sans unité</td></tr>
+  <tr><td>Conductivité (solution diluée)</td><td><code>σ = Σ λᵢ × [Xᵢ]</code></td><td>S·m⁻¹</td></tr>
+</table>
+<div id="conv" class="box attention">
+  <strong>Conversions à ne jamais oublier</strong>
+  1 mL = 10⁻³ L · 1 mg = 10⁻³ g · 1 mS·cm⁻¹ = 100 mS·m⁻¹ · 1 µS·cm⁻¹ = 10⁻⁴ S·m⁻¹.
+</div>
+<p>Masse molaire utilisée souvent : M(SO₄²⁻) = 96,1 g·mol⁻¹. Les autres valeurs sont dans les documents de l'exercice.</p>
+
+<h2 id="ions">2 bis. Ions et charges à connaître</h2>
+
+<h3>Liste à retenir</h3>
+<table>
+  <tr><th>Cations (positifs)</th><th>Anions (négatifs)</th></tr>
+  <tr><td>Na⁺ (sodium), K⁺ (potassium), Ag⁺ (argent), NH₄⁺ (ammonium)</td><td>Cl⁻ (chlorure), I⁻ (iodure), HO⁻ (hydroxyde)</td></tr>
+  <tr><td>Mg²⁺ (magnésium), Ca²⁺ (calcium), Ba²⁺ (baryum)</td><td>SO₄²⁻ (sulfate), CO₃²⁻ (carbonate)</td></tr>
+  <tr><td>Al³⁺ (aluminium)</td><td>NO₃⁻ (nitrate), HCO₃⁻ (hydrogénocarbonate)</td></tr>
+</table>
+
+<h3>Méthode 1 : lire la charge sur le tableau périodique</h3>
+<p>Repérer la colonne de l'élément dans le tableau périodique : la charge de l'ion se lit directement.</p>
+<table>
+  <tr><th>Colonne</th><th>1</th><th>2</th><th>13</th><th>15</th><th>16</th><th>17</th></tr>
+  <tr><td>Exemples</td><td>H, Li, Na, K</td><td>Be, Mg, Ca</td><td>B, Al</td><td>N, P</td><td>O, S</td><td>F, Cl, Br, I</td></tr>
+  <tr><td>Charge de l'ion</td><td>+1</td><td>+2</td><td>+3</td><td>−3</td><td>−2</td><td>−1</td></tr>
+</table>
+
+<h3>Méthode 2 : la règle de l'octet</h3>
+<p>Un atome veut 8 électrons sur sa couche externe (règle de l'octet). Il gagne ou perd des électrons pour y arriver :</p>
+<ul>
+  <li>Peu d'électrons externes (1, 2 ou 3) : il les <strong>perd</strong> → ion <strong>positif</strong>. Ex. Na : 1 électron perdu → Na⁺ ; Mg : 2 perdus → Mg²⁺.</li>
+  <li>Presque 8 électrons externes (5, 6 ou 7) : il en <strong>gagne</strong> → ion <strong>négatif</strong>. Ex. Cl : 7 électrons, 1 gagné → Cl⁻ ; O : 6, 2 gagnés → O²⁻.</li>
+</ul>
+
+<div class="box attention"><strong>Contrôle</strong>Un composé ionique est neutre. BaCl₂ : Ba²⁺ (+2) et 2 Cl⁻ (−1 × 2) : +2 − 2 = 0. La formule donne donc les coefficients.</div>
+
+<h2 id="methodes">3. Méthodes</h2>
+
+<h3 id="mA">Méthode A : calculer une quantité de matière à l'équivalence</h3>
+<ol class="etapes">
+  <li>Lire V<sub>eq</sub> sur la courbe (intersection des deux droites). Convertir en litres.</li>
+  <li>Calculer n(réactif titrant) versé = C × V<sub>eq</sub>.</li>
+  <li>Écrire la relation stœchiométrique. Pour BaSO₄, a = b = 1, donc n(SO₄²⁻) = n(Ba²⁺) à l'équivalence.</li>
+</ol>
+<p><em>Exemple</em> : 1,00 × 10⁻¹ mol·L⁻¹ × 12,1 × 10⁻³ L = 1,21 × 10⁻³ mol.</p>
+
+<h3 id="mB">Méthode B : passer d'une prise d'essai à la concentration de l'eau</h3>
+<ol class="etapes">
+  <li>Écrire la relation d'équivalence : n(espèce dans l'eau) = n(titrant versé).</li>
+  <li>Exprimer la concentration de l'eau : C<sub>eau</sub> = n / V<sub>prise d'essai</sub>.</li>
+  <li>Attention au volume : c'est la <strong>prise d'essai</strong> (50,0 mL, 100 mL…) qui sert de dénominateur, pas le volume de titrant.</li>
+</ol>
+
+<h3 id="mC">Méthode C : passer de la quantité de matière à la masse</h3>
+<ol class="etapes">
+  <li>Concentration molaire C en mol·L⁻¹.</li>
+  <li>Concentration massique : Cm = C × M (g·mol⁻¹ → g·L⁻¹).</li>
+  <li>Convertir en mg·L⁻¹ si l'étiquette est en mg : × 1000.</li>
+</ol>
+
+<h3 id="mD">Méthode D : comparer à une valeur d'étiquette ou à une norme</h3>
+<ol class="etapes">
+  <li>Mettre les deux valeurs dans la même unité.</li>
+  <li>Calculer l'écart relatif : (valeur mesurée − valeur de référence) / valeur de référence × 100.</li>
+  <li>Conclure avec la norme : « conforme » si la valeur est inférieure à la limite de qualité.</li>
+  <li>Si l'écart est faible, le dire, et le comparer à l'incertitude de lecture avant de conclure « cohérent ».</li>
+</ol>
+
+<h3 id="mE">Méthode E : exploiter des mesures de conductivité</h3>
+<ol class="etapes">
+  <li>Pour des solutions diluées de même nature d'ions, σ est proportionnel à C : la droite passe par l'origine.</li>
+  <li>Calculer le coefficient de proportionnalité k = σ / C à partir des points de la courbe.</li>
+  <li>Pour une concentration inconnue, lire σ sur la courbe, ou calculer C = σ / k.</li>
+</ol>
+
+<h3 id="mF">Méthode F : rédiger une réponse « justifier »</h3>
+<ol class="etapes">
+  <li><strong>Constat</strong> chiffré (« σ diminue de … à … »).</li>
+  <li><strong>Explication</strong> avec la notion du cours (ions présents, réaction de dosage).</li>
+  <li><strong>Conclusion</strong> qui répond à la question posée.</li>
+</ol>
+
+<h2 id="erreurs">4. Erreurs fréquentes</h2>
+<table>
+  <tr><th>Erreur</th><th>Ce qu'il faut faire</th></tr>
+  <tr><td>Oublier la conversion mL → L ou mg → g. Écrire 12,1 mL dans une formule en mol·L⁻¹.</td><td>Convertir avant le calcul : 12,1 mL = 12,1 × 10⁻³ L.</td></tr>
+  <tr><td>Écrire <span class="c-ba">a Ba²⁺</span> + <span class="c-so4">b SO₄²⁻</span> → <span class="c-prod">c BaSO₄</span> sans états physiques.</td><td>Écrire <span class="c-ba">a Ba²⁺(aq)</span> + <span class="c-so4">b SO₄²⁻(aq)</span> → <span class="c-prod">c BaSO₄(s)</span>.</td></tr>
+  <tr><td>« Cohérent » sans argument.</td><td>Donner la valeur calculée, l'écart et la comparer à l'incertitude.</td></tr>
+  <tr><td>« La conductivité est liée au nombre d'ions ».</td><td>Préciser la nature des ions et leur concentration.</td></tr>
+  <tr><td>Confondre eau déminéralisée et eau distillée.</td><td>Déminéralisée : sans ions, peut contenir des bactéries. Distillée : sans bactéries, mais contient des gaz dissous.</td></tr>
+  <tr><td>Brouillons non justifiés laissés sur la copie.</td><td>Les effacer ou les justifier.</td></tr>
+</table>
+
+<h2>5. Liste de révision</h2>
+<ul>
+  <li>☐ Je sais expliquer la dissolution d'un solide ionique avec la polarité de H₂O.</li>
+  <li>☐ Je convertis mL, mg et mS·cm⁻¹ sans erreur.</li>
+  <li>☐ J'applique n = m / M, n = C × V, Cm = C × M.</li>
+  <li>☐ Je lis V<sub>eq</sub> à l'intersection des deux droites d'un titrage conductimétrique.</li>
+  <li>☐ J'écris n(A)/a = n(B)/b et j'en déduis une quantité inconnue.</li>
+  <li>☐ Je compare une valeur à une norme et je calcule un écart relatif.</li>
+  <li>☐ Je sais dire quels ions conduisent le mieux (K⁺ &gt; Na⁺ ; Cl⁻ &gt; NO₃⁻) et pourquoi σ dépend de C.</li>
+  <li>☐ Je différencie eau ultra pure, déminéralisée, distillée et minérale.</li>
+</ul>
+
+<p>Pour s'entraîner : <a href="corrections.html">les corrections pas à pas</a> et le <a href="qcm.html">QCM</a>.</p>
+</main>
+</body>
+</html>

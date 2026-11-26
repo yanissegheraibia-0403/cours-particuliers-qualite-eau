@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QCM d'entraînement · Qualité de l'eau</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header class="site"><a href="index.html">← Accueil</a> <a href="cours.html">Cours</a> <a href="corrections.html">Corrections</a></header>
+
+<h1>QCM d'entraînement · Qualité de l'eau</h1>
+<p class="sub">Chaque série tire 10 questions au hasard, dans un ordre et avec des réponses mélangés. Les questions avec calcul ont des valeurs qui changent. Vous pouvez recommencer autant de fois que vous voulez : rien n'est enregistré, et ce n'est pas noté.</p>
+<div class="box methode"><strong>Consigne</strong>Cocher la ou les bonnes réponses. Certaines questions ont plusieurs bonnes réponses : c'est indiqué. Puis cliquer sur « Corriger ». Lire l'explication de chaque question, surtout celles que vous avez ratées.</div>
+
+<div id="app"></div>
+
+<script>
+/* ---------- Questions fixes ---------- */
+/* opts : [texte, est_correct]. multi : plusieurs bonnes réponses possibles. */
+const STATIC = [
+  { q: "L'eau est un :", multi: false,
+    opts: [["solvant polaire", 1], ["solvant apolaire", 0], ["soluté", 0]],
+    expl: "La molécule H₂O a un pôle δ⁻ (oxygène) et un pôle δ⁺ (hydrogènes) : c'est un solvant polaire." },
+  { q: "Le phénomène qui explique la solubilité des composés ioniques dans l'eau s'appelle :", multi: true,
+    opts: [["la dilution", 0], ["la solvatation", 1], ["l'hydratation", 1]],
+    expl: "Les molécules d'eau entourent les ions : c'est la solvatation. Dans le cas de l'eau, on dit aussi hydratation." },
+  { q: "La grandeur qui permet d'évaluer la capacité d'une solution à conduire le courant est :", multi: false,
+    opts: [["la conductivité", 1], ["le siemens par mètre", 0], ["le pH", 0]],
+    expl: "C'est la conductivité σ. Le siemens par mètre est une unité, pas une grandeur." },
+  { q: "Le passage du courant dans une solution est dû à :", multi: false,
+    opts: [["un déplacement d'ions", 1], ["un déplacement d'électrons", 0], ["un déplacement de molécules d'eau", 0]],
+    expl: "Dans une solution, ce sont les ions, chargés, qui se déplacent. Les électrons circulent dans les fils, pas dans la solution." },
+  { q: "L'unité de la conductivité est :", multi: false,
+    opts: [["le siemens (S)", 0], ["le siemens par mètre (S·m⁻¹)", 1], ["l'ohm (Ω)", 0]],
+    expl: "La conductivité s'exprime en S·m⁻¹. L'ohm est l'unité de la résistance." },
+  { q: "La conductivité d'une solution dépend :", multi: true,
+    opts: [["de la nature des ions présents", 1], ["de la concentration des ions", 1], ["de la température", 1]],
+    expl: "Les trois facteurs agissent : nature des ions, concentration et température." },
+  { q: "Lors d'un dosage conductimétrique, on suit :", multi: false,
+    opts: [["l'évolution du pH en fonction du volume versé", 0], ["l'évolution de l'absorbance en fonction du volume versé", 0], ["l'évolution de la conductivité en fonction du volume versé", 1]],
+    expl: "Le dosage conductimétrique suit la conductivité σ en fonction du volume de titrant." },
+  { q: "L'équivalence d'un titrage conductimétrique est repérée par :", multi: true,
+    opts: [["la zone de virage d'un indicateur coloré", 0], ["un changement de pente sur la courbe σ = f(V)", 1], ["la méthode des tangentes", 1]],
+    expl: "Le point d'équivalence est à l'intersection des deux portions de droite : c'est la méthode des tangentes. Pas d'indicateur coloré ici." },
+  { q: "Pour qu'une eau soit potable, elle doit :", multi: true,
+    opts: [["posséder des qualités microbiologiques", 1], ["posséder des qualités organoleptiques", 1], ["répondre à des paramètres physico-chimiques précis", 1]],
+    expl: "Les trois qualités sont nécessaires : microbiologique, organoleptique et physico-chimique." },
+  { q: "Les activités humaines :", multi: true,
+    opts: [["impactent la qualité chimique de l'eau", 1], ["altèrent la faune et la flore marines et aquatiques", 1], ["n'impactent pas la qualité chimique de l'eau", 0]],
+    expl: "Les activités humaines dégradent la qualité chimique de l'eau, ce qui altère la faune et la flore." },
+  { q: "Les micropolluants et les macropolluants :", multi: false,
+    opts: [["ont la même concentration dans l'eau", 0], ["doivent subir une gestion adaptée", 1], ["n'existent pas", 0]],
+    expl: "Ils existent bel et bien et demandent des traitements adaptés. Les micropolluants sont à très faible concentration mais toxiques." },
+  { q: "Dans la molécule H₂O, le pôle négatif (δ⁻) est porté par :", multi: false,
+    opts: [["l'hydrogène", 0], ["l'oxygène", 1], ["les deux atomes à égalité", 0]],
+    expl: "L'oxygène est plus électronégatif : il porte la charge partielle négative δ⁻." },
+  { q: "La concentration massique Cm s'exprime en :", multi: false,
+    opts: [["mol·L⁻¹", 0], ["g·L⁻¹", 1], ["g·mol⁻¹", 0]],
+    expl: "Cm = m / V : masse en g divisée par volume en L, donc g·L⁻¹. Les mol·L⁻¹ concernent C, et les g·mol⁻¹ la masse molaire M." },
+  { q: "L'eau distillée contient :", multi: false,
+    opts: [["des bactéries", 0], ["des gaz dissous (O₂, CO₂)", 1], ["des sels minéraux en grande quantité", 0]],
+    expl: "L'eau distillée est purifiée : pas de bactéries, mais elle garde des gaz dissous." },
+  { q: "Après l'équivalence d'un titrage de SO₄²⁻ par BaCl₂, la conductivité augmente car :", multi: false,
+    opts: [["les ions Ba²⁺ et Cl⁻ sont en excès", 1], ["les ions SO₄²⁻ disparaissent", 0], ["la température augmente", 0]],
+    expl: "Après l'équivalence, Ba²⁺ et Cl⁻ ne sont plus consommés : ils s'accumulent, la conductivité augmente. Les SO₄²⁻ ont déjà disparu avant, ce qui fait baisser σ." },
+  { q: "1 mS·cm⁻¹ est égal à :", multi: false,
+    opts: [["10 mS·m⁻¹", 0], ["100 mS·m⁻¹", 1], ["1000 mS·m⁻¹", 0]],
+    expl: "1 mS·cm⁻¹ = 10⁻³ S / 10⁻² m = 10⁻¹ S·m⁻¹ = 100 mS·m⁻¹ : multiplier par 100." },
+  { q: "Pour une solution diluée de mêmes ions, si la concentration est multipliée par 3, la conductivité :", multi: false,
+    opts: [["est divisée par 3", 0], ["est multipliée par 3", 1], ["ne change pas", 0]],
+    expl: "Pour des solutions diluées, σ est proportionnel à C : la conductivité est aussi multipliée par 3." },
+  { q: "Une solution de nitrate d'argent à 0,2 mol·L⁻¹ et une solution à 100 mmol·L⁻¹ : laquelle conduit le mieux ?", multi: false,
+    opts: [["celle à 0,2 mol·L⁻¹", 1], ["celle à 100 mmol·L⁻¹", 0], ["les deux conduisent pareil", 0]],
+    expl: "0,2 mol·L⁻¹ = 200 mmol·L⁻¹. Plus de concentration, donc plus de conductivité." }
+];
+
+/* ---------- Questions générées (valeurs aléatoires) ---------- */
+const fr = (x, d) => x.toLocaleString('fr-FR', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+const pick = a => a[Math.floor(Math.random() * a.length)];
+function uniqOpts(list) {
+  const seen = new Set(); const out = [];
+  for (const o of list) { if (!seen.has(o[0])) { seen.add(o[0]); out.push(o); } }
+  return out;
+}
+
+function genConvMasse() {
+  const N = pick([250, 480, 1121, 760, 1050]);
+  const bon = fr(N / 1000, 3) + " g·L⁻¹";
+  return { q: `Une eau contient ${N} mg·L⁻¹ de sulfates. Quelle est sa concentration massique ?`, multi: false,
+    opts: uniqOpts([[bon, 1], [fr(N, 3) + " g·L⁻¹", 0], [fr(N / 100, 3) + " g·L⁻¹", 0], [fr(N * 1000, 0) + " g·L⁻¹", 0]]),
+    expl: `1 mg = 10⁻³ g : ${N} mg = ${fr(N / 1000, 3)} g. Donc ${fr(N / 1000, 3)} g·L⁻¹.` };
+}
+
+function genConductivite() {
+  const X = pick([0.5, 1.2, 1.5, 2.4, 0.8]);
+  const bon = fr(X * 100, 1) + " mS·m⁻¹";
+  return { q: `Convertir σ = ${fr(X, 2)} mS·cm⁻¹ en mS·m⁻¹.`, multi: false,
+    opts: uniqOpts([[bon, 1], [fr(X * 10, 2) + " mS·m⁻¹", 0], [fr(X / 100, 4) + " mS·m⁻¹", 0], [fr(X * 1000, 1) + " mS·m⁻¹", 0]]),
+    expl: `1 mS·cm⁻¹ = 100 mS·m⁻¹ : ${fr(X, 2)} × 100 = ${fr(X * 100, 1)} mS·m⁻¹.` };
+}
+
+function genConcentration() {
+  const n = pick([0.5, 1.21, 2.5, 0.36]);   // mmol
+  const V = pick([10, 12.1, 25, 50]);        // mL
+  const C = n / V;                            // mmol/mL = mol/L
+  return { q: `On a n = ${fr(n, 2)} mmol de soluté dans V = ${fr(V, 1)} mL de solution. Quelle est la concentration molaire ?`, multi: false,
+    opts: uniqOpts([[fr(C, 3) + " mol·L⁻¹", 1], [fr(C * 1000, 1) + " mol·L⁻¹", 0], [fr(C / 10, 4) + " mol·L⁻¹", 0], [fr(n * V, 2) + " mol·L⁻¹", 0]]),
+    expl: `C = n / V. Avec n en mmol et V en mL, le résultat est directement en mol·L⁻¹ : ${fr(n, 2)} / ${fr(V, 1)} = ${fr(C, 3)} mol·L⁻¹.` };
+}
+
+/* ---------- Moteur ---------- */
+function shuffle(a) {
+  a = a.slice();
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+let series = [];
+
+function nouvelleSerie() {
+  const pool = shuffle(STATIC).slice(0, 7).concat([genConvMasse(), genConductivite(), genConcentration()]);
+  series = shuffle(pool).map(q => ({ ...q, opts: shuffle(q.opts) }));
+  afficher();
+}
+
+function afficher() {
+  const app = document.getElementById('app');
+  let html = `<form id="form" onsubmit="return false;">`;
+  series.forEach((q, i) => {
+    const type = q.multi ? 'checkbox' : 'radio';
+    const consigne = q.multi ? ' <em class="sub">(plusieurs réponses possibles)</em>' : '';
+    html += `<div class="qcm-q" id="qq${i}"><p>${i + 1}. ${q.q}${consigne}</p>`;
+    q.opts.forEach((o, k) => {
+      html += `<label><input type="${type}" name="q${i}" value="${k}"> ${o[0]}</label>`;
+    });
+    html += `<div class="qcm-expl" id="ex${i}"></div></div>`;
+  });
+  html += `<button type="button" id="btn-corriger">Corriger</button></form><div id="score"></div>`;
+  app.innerHTML = html;
+  document.getElementById('btn-corriger').addEventListener('click', corriger);
+}
+
+function corriger() {
+  let score = 0;
+  series.forEach((q, i) => {
+    const sel = [...document.querySelectorAll(`input[name="q${i}"]`)].filter(b => b.checked).map(b => +b.value);
+    const bonnes = q.opts.map((o, k) => (o[1] ? k : -1)).filter(k => k >= 0);
+    const ok = sel.length === bonnes.length && sel.every(k => q.opts[k][1]);
+    if (ok) score++;
+    const bloc = document.getElementById('qq' + i);
+    bloc.classList.add(ok ? 'ok' : 'ko');
+    q.opts.forEach((o, k) => {
+      const lab = document.querySelector(`input[name="q${i}"][value="${k}"]`).parentElement;
+      if (o[1]) lab.innerHTML += ' <strong>✓</strong>';
+    });
+    document.getElementById('ex' + i).textContent = (ok ? 'Bonne réponse. ' : 'Pas tout à fait. ') + q.expl;
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(b => b.disabled = true);
+  });
+  document.getElementById('score').textContent = `Score : ${score} / ${series.length}`;
+  document.getElementById('btn-corriger').remove();
+  const again = document.createElement('button');
+  again.type = 'button';
+  again.textContent = 'Nouvelle série (questions et valeurs différentes)';
+  again.addEventListener('click', nouvelleSerie);
+  document.getElementById('form').appendChild(again);
+  document.getElementById('score').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+nouvelleSerie();
+</script>
+</main>
+</body>
+</html>

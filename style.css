@@ -1,0 +1,96 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1d1d1f;
+  --muted: #5f6368;
+  --accent: #1f5f7a;
+  --box: #f3f6f8;
+  --methode: #eef5fa;
+  --attention: #fff4e5;
+  --ok: #e8f5e9;
+  --ko: #fdecea;
+  --line: #d8dde2;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171a;
+    --fg: #e8e8ea;
+    --muted: #9aa0a6;
+    --accent: #7cc0dd;
+    --box: #1f2328;
+    --methode: #1b2a35;
+    --attention: #33280f;
+    --ok: #17301c;
+    --ko: #3a1d1d;
+    --line: #3a3f45;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171a;
+  --fg: #e8e8ea;
+  --muted: #9aa0a6;
+  --accent: #7cc0dd;
+  --box: #1f2328;
+  --methode: #1b2a35;
+  --attention: #33280f;
+  --ok: #17301c;
+  --ko: #3a1d1d;
+  --line: #3a3f45;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Open Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0 16px;
+  overflow-wrap: break-word;
+}
+main { max-width: 860px; margin: 0 auto; padding: 24px 0 60px; }
+header.site { border-bottom: 1px solid var(--line); margin-bottom: 20px; padding-bottom: 10px; }
+header.site a { color: var(--accent); text-decoration: none; margin-right: 14px; }
+h1 { font-size: 1.6rem; margin: 0.4em 0; }
+h2 { font-size: 1.3rem; margin-top: 2em; border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+h3 { font-size: 1.1rem; margin-top: 1.6em; color: var(--accent); }
+a { color: var(--accent); }
+.sub { color: var(--muted); }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95rem; display: block; overflow-x: auto; }
+th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: var(--box); }
+.enonce { background: var(--box); border-left: 4px solid var(--muted); padding: 10px 14px; border-radius: 4px; }
+.box { padding: 10px 14px; border-radius: 4px; margin: 14px 0; }
+.methode { background: var(--methode); border-left: 4px solid var(--accent); }
+.attention { background: var(--attention); border-left: 4px solid #c77700; }
+.box strong:first-child { display: block; margin-bottom: 4px; }
+ol.etapes > li { margin-bottom: 8px; }
+.formule { font-family: "Courier New", monospace; background: var(--box); padding: 6px 10px; border-radius: 4px; display: block; overflow-x: auto; white-space: pre-wrap; }
+code { font-family: "Courier New", monospace; }
+.toc a { display: inline-block; margin: 3px 6px 3px 0; padding: 3px 10px; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; }
+
+/* QCM */
+.qcm-q { border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; margin: 14px 0; }
+.qcm-q p { margin: 0 0 8px; font-weight: 600; }
+.qcm-q label { display: block; padding: 4px 0; cursor: pointer; font-weight: 400; }
+.qcm-q.ok { background: var(--ok); }
+.qcm-q.ko { background: var(--ko); }
+.qcm-expl { font-size: 0.93rem; color: var(--muted); margin-top: 6px; }
+button {
+  font: inherit; padding: 9px 16px; border-radius: 6px; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--bg); cursor: pointer; margin: 6px 6px 6px 0;
+}
+button.secondaire { background: transparent; color: var(--accent); }
+#score { font-size: 1.2rem; font-weight: 700; margin: 14px 0; }
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.35rem; }
+  table { font-size: 0.85rem; }
+}
+
+/* coefficients colorés = couleur de l'espèce */
+.c-ba, .c-pb, .c-nh4 { color: #c0392b; font-weight: 600; }
+.c-so4, .c-cl, .c-i, .c-ho { color: #1f6fb4; font-weight: 600; }
+.c-ag { color: #7b1fa2; font-weight: 600; }
+.c-prod, .c-agcl, .c-pbi, .c-nh3 { color: #2e7d32; font-weight: 600; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .c-ba,:root:not([data-theme="light"]) .c-pb,:root:not([data-theme="light"]) .c-nh4 {color:#ff8a7a;} :root:not([data-theme="light"]) .c-so4,:root:not([data-theme="light"]) .c-cl,:root:not([data-theme="light"]) .c-i,:root:not([data-theme="light"]) .c-ho {color:#7cc0ff;} :root:not([data-theme="light"]) .c-ag{color:#d59bf0;} :root:not([data-theme="light"]) .c-prod,:root:not([data-theme="light"]) .c-agcl,:root:not([data-theme="light"]) .c-pbi,:root:not([data-theme="light"]) .c-nh3{color:#7fd68a;} }
